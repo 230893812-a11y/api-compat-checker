@@ -1,0 +1,9 @@
+{
+  "api_url": "https://www.678api.ai/v1/chat/completions",
+  "models": ["gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna", "gpt-5.6-astra"],
+  "rounds": 1,
+  "http_proxy": "",
+  "https_proxy": "",
+  "verify_ssl": true,
+  "log_file": "C:/Users/HD/Documents/api-check.log"
+}
