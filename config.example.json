@@ -1,9 +1,17 @@
 {
-  "api_url": "https://www.678api.ai/v1/chat/completions",
-  "models": ["gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna", "gpt-5.6-astra"],
+  "api_url": "https://example.com/v1/chat/completions",
+  "models": ["gpt-4o"],
+  "mode": "standard",
   "rounds": 1,
+  "timeout": 30,
+  "retries": 1,
+  "retry_backoff": 0.5,
+  "context_chars": 12000,
   "http_proxy": "",
   "https_proxy": "",
   "verify_ssl": true,
+  "output_format": "text",
+  "fail_fast": false,
+  "no_env_proxy": false,
   "log_file": "C:/Users/HD/Documents/api-check.log"
 }
