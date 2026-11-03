@@ -85,6 +85,34 @@ python model_route_consistency.py --config config.json
 - `--skip-models-check`：跳过开始前的 `/v1/models` 预检查。
 - `--no-verify`：关闭 SSL 校验，仅建议用于临时排查证书问题。
 
+## 多模型横评
+
+`bench_models.py` 用同一套题目横评多个模型，输出逐项检测流水，适合比较能力、延迟，并发现计费异常。
+
+```cmd
+set API_KEY=你的真实API_KEY
+python bench_models.py --api-url "https://example.com/v1/chat/completions"
+```
+
+| 检测项 | 内容 |
+| --- | --- |
+| `推理` | 商品利润率多步计算，校验唯一整数答案 |
+| `代码` | 生成 `top_k` 函数，在子进程中真跑 5 个用例（含空列表和重复值边界） |
+| `指令` | 恰好两行、首行四字成语、释义不超十字、全文不含「的」 |
+| `长文` | 在 5200 字文本中找回暗号，检查输入是否被截断 |
+| `计费` | 一句 `hi` 的 `prompt_tokens`，正常应为个位数到几十 |
+| `速度` | 流式请求的首字延迟与输出吞吐 |
+
+四项能力检测（推理、代码、指令、长文）计入得分，每项 25 分；计费和速度只作观测，不计分。
+
+```cmd
+python bench_models.py --models gpt-6-sol,claude-opus-5-5   # 只测指定模型
+python bench_models.py --selftest                            # 不联网，先验判分器
+python bench_models.py --no-color                            # 关闭终端颜色
+```
+
+接口地址默认取 `API_URL` 环境变量，也可用 `--api-url` 指定。检测结果写入 `bench_report.json`。
+
 ## 安全提醒
 
 只检测自己拥有或明确获授权的 API。不要把 API Key 提交到 Git、截图或问题报告中；full 模式和多轮测试会产生实际 API 用量。

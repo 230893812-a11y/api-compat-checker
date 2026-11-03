@@ -3,3 +3,6 @@ __pycache__/
 *.log
 .env
 config.json
+bench_report.json
+bench_report.md
+report.json
